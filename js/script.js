@@ -36,14 +36,14 @@ ScrollReveal({
     delay: 200
 });
 
-ScrollReveal().reveal('.home-content, .heading', {origin: 'top'});
-ScrollReveal().reveal('.home-img, .portofolio-box, .contact form', {origin: 'bottom'});
+ScrollReveal().reveal('.home-content, .heading, .home-content p', {origin: 'top'});
+ScrollReveal().reveal('.home-img, .portofolio-box, .contact form, .about-content', {origin: 'bottom'});
 ScrollReveal().reveal('.home-content h1, .about-img', {origin: 'left'});
-ScrollReveal().reveal('.home-content p, .about-content', {origin: 'right'});
+ScrollReveal().reveal('', {origin: 'right'});
 
 
 const typed = new Typed('.multiple-text', {
-    strings: ['Flutter Developer'],
+    strings: ['Flutter Developer', 'Web Developer'],
     typeSpeed: 100,
     backSpeed: 100,
     backDelay: 1000,
