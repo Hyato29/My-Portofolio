@@ -37,7 +37,7 @@ ScrollReveal({
 });
 
 ScrollReveal().reveal('.home-content, .heading, .home-content p', {origin: 'top'});
-ScrollReveal().reveal('.home-img, .portofolio-box, .portofolio-box-certificate, .contact form, .about-content', {origin: 'bottom'});
+ScrollReveal().reveal('.home-img, .portofolio-container, .contact form, .about-content', {origin: 'bottom'});
 ScrollReveal().reveal('.home-content h1, .about-img', {origin: 'left'});
 ScrollReveal().reveal('', {origin: 'right'});
 
