@@ -1,59 +1,129 @@
-let menuIcon = document.querySelector('#menu-icon');
-let mavbar = document.querySelector('.navbar');
+/* --- 1. Spotlight Effect Logic --- */
+const spotlightCards = document.querySelectorAll(".spotlight-card");
 
-menuIcon.onclick = () => {
-    menuIcon.classList.toggle('bx-x');
-    mavbar.classList.toggle('active');
-};
+spotlightCards.forEach((card) => {
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
+    card.style.setProperty("--x", `${x}px`);
+    card.style.setProperty("--y", `${y}px`);
+  });
+});
 
-let sections = document.querySelectorAll('section');
-let navLinks = document.querySelectorAll('header nav a');
+/* --- 2. Typed JS --- */
+const typed = new Typed(".multiple-text", {
+  strings: ["Flutter Developer", "Web Developer", "Tech Enthusiast"],
+  typeSpeed: 100,
+  backSpeed: 100,
+  backDelay: 1000,
+  loop: true,
+});
+
+/* --- 3. Scroll Reveal --- */
+ScrollReveal({
+  reset: true,
+  distance: "60px",
+  duration: 2000,
+  delay: 200,
+});
+
+ScrollReveal().reveal(".hero-text, .heading", { origin: "top" });
+ScrollReveal().reveal(".lanyard-wrapper, .bento-grid, .contact-wrapper", {
+  origin: "bottom",
+});
+ScrollReveal().reveal(".hero-text h1", { origin: "left" });
+
+/* --- 3. Scroll Reveal (Animation on Scroll) --- */
+ScrollReveal({
+  reset: true,      // Animasi ulang setiap kali di-scroll
+  distance: "100px", // Jarak tempuh animasi
+  duration: 2000,   // Durasi animasi (2 detik)
+  delay: 200,
+});
+
+// Animasi Header & Hero (Yang sudah ada)
+ScrollReveal().reveal(".hero-text, .heading", { origin: "top" });
+ScrollReveal().reveal(".lanyard-wrapper, .bento-grid, .contact-wrapper", {
+  origin: "bottom",
+});
+ScrollReveal().reveal(".hero-text h1", { origin: "left" });
+
+/* --- TAMBAHAN BARU: ANIMASI SELECTED WORKS --- */
+
+// 1. Gambar & Nomor (Sebelah Kiri) -> Muncul dari KIRI
+ScrollReveal().reveal(".proj-visual, .proj-number", { 
+  origin: "left",
+  distance: "120px", // Jarak geser lebih jauh biar dramatis
+  interval: 200      // Ada jeda sedikit antara nomor dan gambar
+});
+
+// 2. Teks Deskripsi (Sebelah Kanan) -> Muncul dari KANAN
+ScrollReveal().reveal(".proj-content", { 
+  origin: "right", 
+  distance: "120px"  // Jarak geser sama
+});
+
+/* --- 4. Navbar Active State --- */
+let sections = document.querySelectorAll("section");
+let navLinks = document.querySelectorAll("header nav a");
 
 window.onscroll = () => {
-    sections.forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 150;
-        let height = sec.offsetHeight;
-        let id = sec.getAttribute('id');
+  sections.forEach((sec) => {
+    let top = window.scrollY;
+    let offset = sec.offsetTop - 150;
+    let height = sec.offsetHeight;
+    let id = sec.getAttribute("id");
 
-        if (top >= offset && top < offset + height) {
-            navLinks.forEach(links => {
-                links.classList.remove('active');
-                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
-            });
-        };
-    });
-    let header = document.querySelector('header');
-
-    header.classList.toggle('seticky', window.scrollY > 100);
+    if (top >= offset && top < offset + height) {
+      navLinks.forEach((links) => {
+        links.classList.remove("active");
+        let target = document.querySelector(".navbar a[href*=" + id + "]");
+        if (target) target.classList.add("active");
+      });
+    }
+  });
 };
 
-ScrollReveal({
-    reset: true,
-    distance: '80px',
-    duration: 2000,
-    delay: 200
-});
+/* --- 5. Journey Animation --- */
+const journeySection = document.querySelector("#journey");
+const beamLight = document.querySelector(".beam-light");
+const neonDots = document.querySelectorAll(".neon-dot");
 
-ScrollReveal().reveal('.home-content, .heading, .home-content p', {origin: 'top'});
-ScrollReveal().reveal('.home-img, .portofolio-container, .contact form, .about-content', {origin: 'bottom'});
-ScrollReveal().reveal('.home-content h1, .about-img', {origin: 'left'});
-ScrollReveal().reveal('', {origin: 'right'});
+function updateJourney() {
+  if (!journeySection || !beamLight) return;
 
+  const sectionTop = journeySection.getBoundingClientRect().top;
+  const sectionHeight = journeySection.offsetHeight;
+  const windowHeight = window.innerHeight;
 
-const typed = new Typed('.multiple-text', {
-    strings: ['Flutter Developer', 'Web Developer'],
-    typeSpeed: 100,
-    backSpeed: 100,
-    backDelay: 1000,
-    loop: true
-});
+  let percent = ((windowHeight / 1.5 - sectionTop) / sectionHeight) * 100;
+  percent = Math.max(0, Math.min(100, percent));
 
-const typing = new Typed('.multiple-text-about', {
-    strings: ['Flutter Developer', 'Web Developer'],
-    typeSpeed: 100,
-    backSpeed: 100,
-    backDelay: 1000,
-    loop: true
-});
+  beamLight.style.height = `${percent}%`;
+
+  neonDots.forEach((dot) => {
+    const dotTop =
+      dot.getBoundingClientRect().top -
+      journeySection.getBoundingClientRect().top;
+    const dotPercent = (dotTop / sectionHeight) * 100;
+
+    const row = dot.closest(".terminal-row");
+    const content = row.querySelector(".col-content");
+    const desc = row.querySelector(".col-desc");
+
+    if (percent >= dotPercent) {
+      dot.classList.add("active");
+      if (content) content.classList.add("show");
+      if (desc) desc.classList.add("show");
+    } else {
+      dot.classList.remove("active");
+      if (content) content.classList.remove("show");
+      if (desc) desc.classList.remove("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", updateJourney);
+window.addEventListener("load", updateJourney);
