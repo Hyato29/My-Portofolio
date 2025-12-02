@@ -116,3 +116,19 @@ function updateJourney() {
 
 window.addEventListener("scroll", updateJourney);
 window.addEventListener("load", updateJourney);
+
+const music = document.getElementById("bg-music");
+const musicBtn = document.getElementById("music-btn");
+const musicIcon = musicBtn.querySelector("i");
+
+musicBtn.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    musicBtn.classList.add("playing");
+  } else {
+    music.pause();
+    musicBtn.classList.remove("playing");
+  }
+});
+
+music.volume = 0.1;
