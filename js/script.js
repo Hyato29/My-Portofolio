@@ -131,4 +131,4 @@ musicBtn.addEventListener("click", () => {
   }
 });
 
-music.volume = 0.1;
+music.volume = 0.3;
