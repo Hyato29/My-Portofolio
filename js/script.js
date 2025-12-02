@@ -1,4 +1,3 @@
-/* --- 1. Spotlight Effect Logic --- */
 const spotlightCards = document.querySelectorAll(".spotlight-card");
 
 spotlightCards.forEach((card) => {
@@ -12,7 +11,6 @@ spotlightCards.forEach((card) => {
   });
 });
 
-/* --- 2. Typed JS --- */
 const typed = new Typed(".multiple-text", {
   strings: ["Flutter Developer", "Web Developer", "Tech Enthusiast"],
   typeSpeed: 100,
@@ -21,7 +19,6 @@ const typed = new Typed(".multiple-text", {
   loop: true,
 });
 
-/* --- 3. Scroll Reveal --- */
 ScrollReveal({
   reset: true,
   distance: "60px",
@@ -35,37 +32,30 @@ ScrollReveal().reveal(".lanyard-wrapper, .bento-grid, .contact-wrapper", {
 });
 ScrollReveal().reveal(".hero-text h1", { origin: "left" });
 
-/* --- 3. Scroll Reveal (Animation on Scroll) --- */
 ScrollReveal({
-  reset: true,      // Animasi ulang setiap kali di-scroll
-  distance: "100px", // Jarak tempuh animasi
-  duration: 2000,   // Durasi animasi (2 detik)
+  reset: true,
+  distance: "100px",
+  duration: 2000,
   delay: 200,
 });
 
-// Animasi Header & Hero (Yang sudah ada)
 ScrollReveal().reveal(".hero-text, .heading", { origin: "top" });
 ScrollReveal().reveal(".lanyard-wrapper, .bento-grid, .contact-wrapper", {
   origin: "bottom",
 });
 ScrollReveal().reveal(".hero-text h1", { origin: "left" });
 
-/* --- TAMBAHAN BARU: ANIMASI SELECTED WORKS --- */
-
-// 1. Gambar & Nomor (Sebelah Kiri) -> Muncul dari KIRI
-ScrollReveal().reveal(".proj-visual, .proj-number", { 
+ScrollReveal().reveal(".proj-visual, .proj-number", {
   origin: "left",
-  distance: "120px", // Jarak geser lebih jauh biar dramatis
-  interval: 200      // Ada jeda sedikit antara nomor dan gambar
+  distance: "120px",
+  interval: 200,
 });
 
-// 2. Teks Deskripsi (Sebelah Kanan) -> Muncul dari KANAN
-ScrollReveal().reveal(".proj-content", { 
-  origin: "right", 
-  distance: "120px"  // Jarak geser sama
+ScrollReveal().reveal(".proj-content", {
+  origin: "right",
+  distance: "120px",
 });
 
-/* --- 4. Navbar Active State --- */
 let sections = document.querySelectorAll("section");
 let navLinks = document.querySelectorAll("header nav a");
 
@@ -86,7 +76,6 @@ window.onscroll = () => {
   });
 };
 
-/* --- 5. Journey Animation --- */
 const journeySection = document.querySelector("#journey");
 const beamLight = document.querySelector(".beam-light");
 const neonDots = document.querySelectorAll(".neon-dot");

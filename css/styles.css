@@ -1044,32 +1044,28 @@ section {
 .cert-img-wrapper {
   position: relative;
   width: 100%;
-  height: 180px; /* Samakan tinggi dengan style gambar sebelumnya */
+  height: 180px;
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 15px; /* Memberi jarak ke teks di bawahnya */
+  margin-bottom: 15px;
 }
 
-/* Penyesuaian gambar di dalam wrapper */
 .cert-img-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
-  margin-bottom: 0; /* Reset margin karena sudah dihandle wrapper */
+  margin-bottom: 0;
 }
 
-/* Efek Zoom saat wrapper di-hover */
 .cert-img-wrapper:hover img {
   transform: scale(1.1);
 }
 
-/* Memicu Overlay Muncul saat wrapper di-hover */
 .cert-img-wrapper:hover .proj-overlay {
   opacity: 1;
 }
 
-/* Memicu Animasi Teks & Tombol di dalam Overlay */
 .cert-img-wrapper:hover .proj-overlay h3,
 .cert-img-wrapper:hover .proj-overlay .overlay-btn {
   transform: translateY(0);
