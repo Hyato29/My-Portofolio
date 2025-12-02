@@ -12,7 +12,7 @@ spotlightCards.forEach((card) => {
 });
 
 const typed = new Typed(".multiple-text", {
-  strings: ["Flutter Developer", "Web Developer", "Tech Enthusiast"],
+  strings: ["Mobile Developer", "Web Developer", "Tech Enthusiast"],
   typeSpeed: 100,
   backSpeed: 100,
   backDelay: 1000,
