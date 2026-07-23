@@ -70,7 +70,19 @@ window.addEventListener("scroll", () => {
       navLinks.forEach((links) => {
         links.classList.remove("active");
       });
-      let target = document.querySelector(".navbar .menu a[href*=" + id + "]");
+
+      let target;
+
+      if (
+        id === "journey" ||
+        id === "portofolio" ||
+        (!id && sec.classList.contains("portofolio"))
+      ) {
+        target = document.querySelector(".navbar .menu a[href*='#journey']");
+      } else if (id) {
+        target = document.querySelector(".navbar .menu a[href*=" + id + "]");
+      }
+
       if (target) {
         target.classList.add("active");
       }
