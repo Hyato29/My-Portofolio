@@ -62,7 +62,7 @@ let navLinks = document.querySelectorAll(".navbar .menu a");
 window.addEventListener("scroll", () => {
   sections.forEach((sec) => {
     let top = window.scrollY;
-    let offset = sec.offsetTop - 150; 
+    let offset = sec.offsetTop - 150;
     let height = sec.offsetHeight;
     let id = sec.getAttribute("id");
 
@@ -134,3 +134,112 @@ musicBtn.addEventListener("click", () => {
 });
 
 music.volume = 0.3;
+
+const supabaseClient = window.supabase.createClient(
+  CONFIG.SUPABASE_URL,
+  CONFIG.SUPABASE_ANON_KEY,
+);
+
+const guestbookForm = document.getElementById("guestbookForm");
+const messagesGrid = document.getElementById("messagesGrid");
+const submitBtn = document.querySelector(".chat-send-btn");
+
+async function fetchMessages() {
+  messagesGrid.innerHTML =
+    '<p style="color: var(--text-muted); text-align: center; margin-top: auto; margin-bottom: auto;">Memuat pesan...</p>';
+
+  const { data, error } = await supabaseClient
+    .from("guestbook")
+    .select("*")
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    console.error("Error fetching messages:", error);
+    messagesGrid.innerHTML =
+      '<p style="color: #ff4757; text-align: center; margin-top: auto;">Gagal memuat pesan.</p>';
+    return;
+  }
+
+  renderMessages(data);
+}
+
+function renderMessages(messages) {
+  messagesGrid.innerHTML = "";
+
+  if (messages.length === 0) {
+    messagesGrid.innerHTML =
+      '<p style="color: var(--text-muted); text-align: center; margin-top: auto; margin-bottom: auto;">Belum ada obrolan. Mulai percakapan!</p>';
+    return;
+  }
+
+  messages.forEach((msg) => {
+    const colors = [
+      "var(--main-color)",
+      "var(--secondary-color)",
+      "#ff4757",
+      "#2ed573",
+      "#ffa502",
+      "#70a1ff",
+    ];
+    const colorIndex = msg.name.length % colors.length;
+    const randomColor = colors[colorIndex];
+
+    const msgDate = new Date(msg.created_at);
+    const timeString = msgDate.toLocaleTimeString("id-ID", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const messageCard = document.createElement("div");
+    messageCard.classList.add("message-card");
+
+    messageCard.innerHTML = `
+      <div class="msg-bubble-header">
+        <span class="msg-sender-name" style="color: ${randomColor};">${msg.name}</span>
+        <span class="msg-time">${timeString}</span>
+      </div>
+      <div class="msg-body">${msg.message}</div>
+    `;
+
+    messagesGrid.appendChild(messageCard);
+  });
+
+  messagesGrid.scrollTop = messagesGrid.scrollHeight;
+}
+
+if (guestbookForm) {
+  guestbookForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const nameInput = document.getElementById("senderName");
+    const messageInput = document.getElementById("senderMessage");
+
+    if (!nameInput.value.trim()) {
+      alert("Silakan isi nama Anda di bagian atas terlebih dahulu!");
+      nameInput.focus();
+      return;
+    }
+
+    submitBtn.innerHTML = '<i class="bx bx-loader bx-spin"></i>';
+    submitBtn.disabled = true;
+
+    const { data, error } = await supabaseClient
+      .from("guestbook")
+      .insert([
+        { name: nameInput.value.trim(), message: messageInput.value.trim() },
+      ]);
+
+    submitBtn.innerHTML = '<i class="bx bx-send"></i>';
+    submitBtn.disabled = false;
+
+    if (error) {
+      console.error("Error inserting message:", error);
+      alert("Gagal mengirim pesan.");
+    } else {
+      messageInput.value = "";
+      fetchMessages();
+    }
+  });
+}
+
+window.addEventListener("DOMContentLoaded", fetchMessages);

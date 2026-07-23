@@ -573,27 +573,76 @@
     </section>
 
     <section class="contact" id="contact">
-      <div class="spotlight-card wide-card contact-wrapper">
-        <div class="spotlight-bg"></div>
-        <div class="card-content">
-          <h2 class="heading">Contact <span>Me</span></h2>
-          <form action="#">
-            <div class="input-group">
-              <input type="text" placeholder="Full Name" />
-              <input type="email" placeholder="Email Address" />
+      <div class="contact-modern-wrapper">
+        <h2 class="heading">Let's <span>Connect</span></h2>
+        <p class="contact-subtitle">
+          Have a project in mind or just want to say hi? I'm always open to
+          discussing new opportunities and ideas.
+        </p>
+
+        <div class="wa-card-container">
+          <a
+            href="https://wa.me/qr/JTRTWJ22V4VPD1"
+            target="_blank"
+            class="wa-interactive-card"
+          >
+            <div class="wa-glow-bg"></div>
+            <div class="wa-card-content">
+              <div class="wa-icon-wrapper">
+                <div class="pulse-ring"></div>
+                <i class="bx bxl-whatsapp"></i>
+              </div>
+              <h3>Chat on WhatsApp</h3>
+              <p>The fastest way to reach me directly!</p>
+              <div class="wa-action">
+                <span>Send a Message</span>
+                <i class="bx bx-right-arrow-alt"></i>
+              </div>
             </div>
-            <div class="input-group">
-              <input type="number" placeholder="Mobile Number" />
-              <input type="text" placeholder="Subject" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="guestbook-section" id="guestbook">
+      <div class="chat-wrapper">
+        <h2 class="heading">Live <span>Chat</span></h2>
+
+        <div class="chat-container">
+          <div class="chat-header">
+            <div class="chat-title">
+              <i class="bx bx-message-rounded-dots"></i>
+              <span>Live Chat</span>
             </div>
-            <textarea cols="30" rows="8" placeholder="Your Message"></textarea>
-            <a
-              href="https://wa.me/qr/JTRTWJ22V4VPD1"
-              target="_blank"
-              class="btn"
-              style="text-align: center"
-              >Send Message</a
-            >
+            <div class="chat-name-input">
+              <input
+                type="text"
+                id="senderName"
+                placeholder="Tulis nama Anda di sini..."
+                required
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <div class="chat-messages" id="messagesGrid">
+          </div>
+
+          <form
+            id="guestbookForm"
+            class="chat-input-area"
+            onsubmit="event.preventDefault()"
+          >
+            <input
+              type="text"
+              id="senderMessage"
+              placeholder="Ketik pesan Anda..."
+              required
+              autocomplete="off"
+            />
+            <button type="submit" class="chat-send-btn">
+              <i class="bx bx-send"></i>
+            </button>
           </form>
         </div>
       </div>
@@ -613,6 +662,8 @@
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
