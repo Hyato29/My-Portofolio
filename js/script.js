@@ -57,24 +57,26 @@ ScrollReveal().reveal(".proj-content", {
 });
 
 let sections = document.querySelectorAll("section");
-let navLinks = document.querySelectorAll("header nav a");
+let navLinks = document.querySelectorAll(".navbar .menu a");
 
-window.onscroll = () => {
+window.addEventListener("scroll", () => {
   sections.forEach((sec) => {
     let top = window.scrollY;
-    let offset = sec.offsetTop - 150;
+    let offset = sec.offsetTop - 150; 
     let height = sec.offsetHeight;
     let id = sec.getAttribute("id");
 
     if (top >= offset && top < offset + height) {
       navLinks.forEach((links) => {
         links.classList.remove("active");
-        let target = document.querySelector(".navbar a[href*=" + id + "]");
-        if (target) target.classList.add("active");
       });
+      let target = document.querySelector(".navbar .menu a[href*=" + id + "]");
+      if (target) {
+        target.classList.add("active");
+      }
     }
   });
-};
+});
 
 const journeySection = document.querySelector("#journey");
 const beamLight = document.querySelector(".beam-light");
