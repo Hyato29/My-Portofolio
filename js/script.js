@@ -131,6 +131,37 @@ const music = document.getElementById("bg-music");
 music.volume = 0.3;
 music.loop = true;
 
+let isMusicStarted = false;
+
+function startMusicAutomatically() {
+  if (!isMusicStarted) {
+    music
+      .play()
+      .then(() => {
+        fabMusicBtn.classList.add("playing");
+        fabMusicBtn.style.color = "var(--main-color)";
+        isMusicStarted = true;
+      })
+      .catch((error) => {
+        console.log("Menunggu interaksi pengguna untuk memutar musik...");
+      });
+  }
+}
+
+window.addEventListener("DOMContentLoaded", startMusicAutomatically);
+
+["click", "scroll", "touchstart"].forEach((eventType) => {
+  document.addEventListener(
+    eventType,
+    () => {
+      if (!isMusicStarted) {
+        startMusicAutomatically();
+      }
+    },
+    { once: true },
+  );
+});
+
 fabMainBtn.addEventListener("click", () => {
   fabMenuItems.classList.toggle("show");
   fabMainBtn.classList.toggle("active");
