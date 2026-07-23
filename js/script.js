@@ -119,21 +119,60 @@ function updateJourney() {
 window.addEventListener("scroll", updateJourney);
 window.addEventListener("load", updateJourney);
 
-const music = document.getElementById("bg-music");
-const musicBtn = document.getElementById("music-btn");
-const musicIcon = musicBtn.querySelector("i");
+const fabMainBtn = document.getElementById("fabMainBtn");
+const fabMenuItems = document.getElementById("fabMenuItems");
+const fabMusicBtn = document.getElementById("fab-music");
+const fabChatBtn = document.getElementById("fab-chat");
 
-musicBtn.addEventListener("click", () => {
-  if (music.paused) {
-    music.play();
-    musicBtn.classList.add("playing");
+const chatPopup = document.getElementById("chatPopup");
+const closeChatBtn = document.getElementById("closeChatBtn");
+
+const music = document.getElementById("bg-music");
+music.volume = 0.3;
+music.loop = true;
+
+fabMainBtn.addEventListener("click", () => {
+  fabMenuItems.classList.toggle("show");
+  fabMainBtn.classList.toggle("active");
+
+  const icon = fabMainBtn.querySelector("i");
+  if (fabMainBtn.classList.contains("active")) {
+    icon.className = "bx bx-x";
   } else {
-    music.pause();
-    musicBtn.classList.remove("playing");
+    icon.className = "bx bx-grid-alt";
   }
 });
 
-music.volume = 0.3;
+fabMusicBtn.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    fabMusicBtn.classList.add("playing");
+    fabMusicBtn.style.color = "var(--main-color)";
+  } else {
+    music.pause();
+    fabMusicBtn.classList.remove("playing");
+    fabMusicBtn.style.color = "#fff";
+  }
+});
+
+fabChatBtn.addEventListener("click", () => {
+  chatPopup.classList.toggle("show");
+
+  if (chatPopup.classList.contains("show")) {
+    const messagesGrid = document.getElementById("messagesGrid");
+    messagesGrid.scrollTop = messagesGrid.scrollHeight;
+  }
+
+  fabMenuItems.classList.remove("show");
+  fabMainBtn.classList.remove("active");
+
+  const icon = fabMainBtn.querySelector("i");
+  icon.className = "bx bx-grid-alt";
+});
+
+closeChatBtn.addEventListener("click", () => {
+  chatPopup.classList.remove("show");
+});
 
 const supabaseClient = window.supabase.createClient(
   CONFIG.SUPABASE_URL,
@@ -215,7 +254,7 @@ if (guestbookForm) {
     const messageInput = document.getElementById("senderMessage");
 
     if (!nameInput.value.trim()) {
-      alert("Silakan isi nama Anda di bagian atas terlebih dahulu!");
+      alert("Silakan isi nama Anda di atas terlebih dahulu!");
       nameInput.focus();
       return;
     }

@@ -604,61 +604,68 @@
       </div>
     </section>
 
-    <section class="guestbook-section" id="guestbook">
-      <div class="chat-wrapper">
-        <h2 class="heading">Live <span>Chat</span></h2>
-
-        <div class="chat-container">
-          <div class="chat-header">
-            <div class="chat-title">
-              <i class="bx bx-message-rounded-dots"></i>
-              <span>Live Chat</span>
-            </div>
-            <div class="chat-name-input">
-              <input
-                type="text"
-                id="senderName"
-                placeholder="Type your name..."
-                required
-                autocomplete="off"
-              />
-            </div>
-          </div>
-
-          <div class="chat-messages" id="messagesGrid">
-          </div>
-
-          <form
-            id="guestbookForm"
-            class="chat-input-area"
-            onsubmit="event.preventDefault()"
-          >
-            <input
-              type="text"
-              id="senderMessage"
-              placeholder="Type your message..."
-              required
-              autocomplete="off"
-            />
-            <button type="submit" class="chat-send-btn">
-              <i class="bx bx-send"></i>
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-
     <footer class="footer">
       <p>Copyright &copy; 2024 Khayatullah Al Amin</p>
     </footer>
 
+    <div class="floating-menu-container">
+      <div class="fab-menu-items" id="fabMenuItems">
+        <button class="fab-item" id="fab-music" title="Play/Pause Music">
+          <i class="bx bx-music"></i>
+        </button>
+        <button class="fab-item" id="fab-chat" title="Buka Live Chat">
+          <i class="bx bx-message-rounded-dots"></i>
+        </button>
+      </div>
+      <button class="fab-main" id="fabMainBtn" title="Menu Interaktif">
+        <i class="bx bx-grid-alt"></i>
+      </button>
+    </div>
+
+    <div class="chat-popup" id="chatPopup">
+      <div class="chat-popup-header">
+        <div class="chat-popup-title">
+          <i class="bx bx-message-rounded-dots"></i>
+          <span>Live Chat</span>
+        </div>
+        <button class="close-chat-btn" id="closeChatBtn">
+          <i class="bx bx-x"></i>
+        </button>
+      </div>
+
+      <div class="chat-popup-name-input">
+        <input
+          type="text"
+          id="senderName"
+          placeholder="Type your name..."
+          required
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="chat-messages" id="messagesGrid"></div>
+
+      <form
+        id="guestbookForm"
+        class="chat-input-area"
+        onsubmit="event.preventDefault()"
+      >
+        <input
+          type="text"
+          id="senderMessage"
+          placeholder="Type your message..."
+          required
+          autocomplete="off"
+        />
+        <button type="submit" class="chat-send-btn">
+          <i class="bx bx-send"></i>
+        </button>
+      </form>
+    </div>
+
     <audio id="bg-music" loop>
       <source src="audio/audio.mp3" type="audio/mpeg" />
     </audio>
-
-    <div class="music-control" id="music-btn">
-      <i class="bx bx-music"></i>
-    </div>
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
