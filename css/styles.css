@@ -1688,34 +1688,43 @@ textarea:focus {
     height: 300px;
   }
 
+  .terminal-container {
+    padding-left: 0; 
+  }
+
+  .center-line {
+    display: block;
+    left: 35px;
+    transform: translateX(-50%);
+  }
+
   .terminal-row {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 4rem;
-    padding-left: 30px;
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 70px;
+    border-left: none;
+    position: relative;
+  }
+
+  .col-dot {
+    display: flex;
+    position: absolute;
+    left: 35px;
+    top: 0;
+    transform: translateX(-50%);
+    height: auto;
+    margin-top: 15px;
   }
 
   .terminal-row .text-right,
   .terminal-row .text-left {
     text-align: left !important;
     align-items: flex-start !important;
-  }
-
-  .terminal-row .col-desc .mono-text {
-    text-align: left;
-  }
-  .center-line,
-  .col-dot {
-    display: none;
-  }
-  .text-right,
-  .text-left {
-    text-align: left;
-    align-items: flex-start;
     margin-bottom: 15px;
   }
+
   .col-content,
   .col-desc {
     padding: 0;
@@ -1726,6 +1735,7 @@ textarea:focus {
     width: 40px;
     height: 40px;
   }
+
   .reverse-layout {
     flex-direction: column;
   }
