@@ -1694,7 +1694,7 @@ textarea:focus {
 
   .center-line {
     display: block;
-    left: 35px;
+    left: 10px;
     transform: translateX(-50%);
   }
 
@@ -1703,7 +1703,7 @@ textarea:focus {
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 4rem;
-    padding-left: 70px;
+    padding-left: 35px;
     border-left: none;
     position: relative;
   }
@@ -1711,7 +1711,7 @@ textarea:focus {
   .col-dot {
     display: flex;
     position: absolute;
-    left: 35px;
+    left: 10px;
     top: 0;
     transform: translateX(-50%);
     height: auto;
