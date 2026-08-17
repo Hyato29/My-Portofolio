@@ -27,10 +27,86 @@ html {
   overflow-x: hidden;
 }
 
+html::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   background: var(--bg-color);
   color: var(--text-color);
   overflow-x: hidden;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease;
+}
+
+body.light-mode {
+  --bg-color: #f4f6f8;
+  --card-bg: #ffffff;
+  --text-color: #111111;
+  --text-muted: #666666;
+  --border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .grid-background {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+body.light-mode .navbar {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+body.light-mode .fab-item {
+  background: rgba(255, 255, 255, 0.9);
+  color: #111;
+}
+
+body.light-mode .hero-text h1 {
+  background: linear-gradient(to right, #111, #666);
+  -webkit-background-clip: text;
+}
+
+/* Card 3D dan Lanyard */
+body.light-mode .profile-3d-card,
+body.light-mode .lanyard-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(240, 240, 240, 0.95)
+  );
+}
+body.light-mode .card-bottom-bar {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .mono-text {
+  color: #555;
+}
+
+body.light-mode input,
+body.light-mode textarea {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--text-color);
+}
+
+body.light-mode .chat-popup-header {
+  background: rgba(0, 0, 0, 0.03);
+}
+body.light-mode .chat-popup-name-input input,
+body.light-mode .chat-input-area input {
+  background: rgba(0, 0, 0, 0.05);
+  color: #111;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+body.light-mode .message-card {
+  background: #f1f2f6;
+  border-color: rgba(0, 0, 0, 0.05);
+}
+body.light-mode .msg-body {
+  color: #333;
 }
 
 section {
@@ -1102,6 +1178,13 @@ section {
   width: fit-content;
   transition: 0.3s;
 }
+
+.btn-small.disabled {
+  pointer-events: none; 
+  cursor: default;      
+  opacity: 0.6;         
+}
+
 .btn-small:hover {
   background: var(--main-color);
   color: var(--bg-color);
@@ -1164,12 +1247,14 @@ textarea:focus {
   perspective: 1000px;
   width: 100%;
   max-width: 450px;
+  position: relative;
 }
 
 .wa-interactive-card {
   display: block;
   position: relative;
   background: var(--card-bg);
+
   border: 1px solid var(--border-color);
   border-radius: 24px;
   padding: 40px 20px;
@@ -1180,6 +1265,50 @@ textarea:focus {
   z-index: 1;
 }
 
+.wa-interactive-card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    #ea4335,
+    #fbbc05,
+    #34a853,
+    #4285f4,
+    #ea4335
+  );
+  background-size: 300% 300%;
+  border-radius: 26px;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: googleColorsRotate 4s ease infinite;
+}
+
+.wa-interactive-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--card-bg);
+  border-radius: 23px;
+  z-index: -1;
+}
+
+@keyframes googleColorsRotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .wa-glow-bg {
   position: absolute;
   top: 50%;
@@ -1188,21 +1317,30 @@ textarea:focus {
   height: 150%;
   background: radial-gradient(
     circle,
-    rgba(37, 211, 102, 0.15) 0%,
-    transparent 60%
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
   );
   transform: translate(-50%, -50%);
-  z-index: -1;
+  z-index: 0;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
 
 .wa-interactive-card:hover {
   transform: translateY(-10px) scale(1.02);
-  border-color: #25d366;
+
+  border-color: transparent;
+
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.6),
-    0 0 30px rgba(37, 211, 102, 0.2);
+    -10px 0 20px rgba(234, 67, 53, 0.3),
+    0 -10px 20px rgba(251, 188, 5, 0.3),
+    10px 0 20px rgba(52, 168, 83, 0.3),
+    0 10px 20px rgba(66, 133, 244, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+.wa-interactive-card:hover::before {
+  opacity: 1;
 }
 
 .wa-interactive-card:hover .wa-glow-bg {
@@ -1217,14 +1355,25 @@ textarea:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #25d366, #128c7e);
+  background: conic-gradient(#ea4335, #fbbc05, #34a853, #4285f4, #ea4335);
   border-radius: 50%;
-  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+  z-index: 2;
 }
 
 .wa-icon-wrapper i {
   font-size: 4.5rem;
   color: #fff;
+  z-index: 3;
+}
+
+.wa-icon-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: var(--card-bg);
+  border-radius: 50%;
   z-index: 2;
 }
 
@@ -1232,7 +1381,7 @@ textarea:focus {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #25d366;
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   z-index: 1;
   animation: waPulse 2s infinite;
@@ -1247,6 +1396,11 @@ textarea:focus {
     transform: scale(1.6);
     opacity: 0;
   }
+}
+
+.wa-card-content {
+  position: relative;
+  z-index: 2;
 }
 
 .wa-card-content h3 {
@@ -1274,6 +1428,7 @@ textarea:focus {
   font-size: 1.5rem;
   font-weight: 600;
   transition: 0.3s ease;
+  z-index: 2;
 }
 
 .wa-action i {
@@ -1282,9 +1437,9 @@ textarea:focus {
 }
 
 .wa-interactive-card:hover .wa-action {
-  background: #25d366;
-  border-color: #25d366;
-  color: #fff;
+  background: #fff;
+  border-color: #fff;
+  color: #111;
 }
 
 .wa-interactive-card:hover .wa-action i {
@@ -1382,6 +1537,14 @@ textarea:focus {
 
 .fab-item.playing i {
   animation: rotateMusic 3s linear infinite;
+}
+
+.fab-lang-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  user-select: none;
 }
 
 @keyframes rotateMusic {
@@ -1689,7 +1852,7 @@ textarea:focus {
   }
 
   .terminal-container {
-    padding-left: 0; 
+    padding-left: 0;
   }
 
   .center-line {

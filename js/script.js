@@ -62,7 +62,7 @@ let navLinks = document.querySelectorAll(".navbar .menu a");
 window.addEventListener("scroll", () => {
   sections.forEach((sec) => {
     let top = window.scrollY;
-    let offset = sec.offsetTop - 150;
+    let offset = sec.offsetTop - 200;
     let height = sec.offsetHeight;
     let id = sec.getAttribute("id");
 
@@ -73,14 +73,10 @@ window.addEventListener("scroll", () => {
 
       let target;
 
-      if (
-        id === "journey" ||
-        id === "portofolio" ||
-        (!id && sec.classList.contains("portofolio"))
-      ) {
+      if (id === "journey" || id === "portofolio" || id === "certificates") {
         target = document.querySelector(".navbar .menu a[href*='#journey']");
       } else if (id) {
-        target = document.querySelector(".navbar .menu a[href*=" + id + "]");
+        target = document.querySelector(".navbar .menu a[href*='#" + id + "']");
       }
 
       if (target) {
@@ -135,6 +131,28 @@ const fabMainBtn = document.getElementById("fabMainBtn");
 const fabMenuItems = document.getElementById("fabMenuItems");
 const fabMusicBtn = document.getElementById("fab-music");
 const fabChatBtn = document.getElementById("fab-chat");
+
+const fabThemeBtn = document.getElementById("fab-theme");
+const themeIcon = fabThemeBtn.querySelector("i");
+
+if (localStorage.getItem("theme") === "light") {
+  document.body.classList.add("light-mode");
+  themeIcon.className = "bx bx-moon";
+} else {
+  themeIcon.className = "bx bx-sun";
+}
+
+fabThemeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+
+  if (document.body.classList.contains("light-mode")) {
+    themeIcon.className = "bx bx-moon";
+    localStorage.setItem("theme", "light");
+  } else {
+    themeIcon.className = "bx bx-sun";
+    localStorage.setItem("theme", "dark");
+  }
+});
 
 const chatPopup = document.getElementById("chatPopup");
 const closeChatBtn = document.getElementById("closeChatBtn");
@@ -325,3 +343,47 @@ if (guestbookForm) {
 }
 
 window.addEventListener("DOMContentLoaded", fetchMessages);
+
+const fabLangBtn = document.getElementById("fab-lang");
+const langLabel = document.getElementById("lang-label");
+
+const languages = ["en", "id", "ar"];
+let currentLang = localStorage.getItem("lang") || "en";
+if (!languages.includes(currentLang)) currentLang = "en";
+
+function applyLanguage(lang) {
+  const elements = document.querySelectorAll("[data-en][data-id][data-ar]");
+
+  elements.forEach((el) => {
+    if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+      el.placeholder = el.getAttribute(`data-${lang}`);
+    } else {
+      el.innerHTML = el.getAttribute(`data-${lang}`);
+    }
+
+    if (lang === "ar") {
+      el.setAttribute("dir", "rtl");
+
+      el.style.textAlign = "";
+    } else {
+      el.setAttribute("dir", "ltr");
+      el.style.textAlign = "";
+    }
+  });
+
+  if (langLabel) {
+    langLabel.textContent = lang.toUpperCase();
+  }
+
+  document.documentElement.setAttribute("dir", "ltr");
+}
+
+applyLanguage(currentLang);
+
+fabLangBtn.addEventListener("click", () => {
+  let currentIndex = languages.indexOf(currentLang);
+  currentLang = languages[(currentIndex + 1) % languages.length];
+
+  localStorage.setItem("lang", currentLang);
+  applyLanguage(currentLang);
+});
