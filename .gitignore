@@ -1,1 +1,3 @@
 js/config.js
+.vercel
+.env*.local
